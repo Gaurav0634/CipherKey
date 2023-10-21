@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:text= "Create new Account"
+        android:textSize="34sp"
+        android:fontFamily="@font/poppinsmedium" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:fontFamily="@font/dmsans"
+        android:linksClickable="false"
+        android:minHeight="48dp"
+        android:text="@string/already_registered_log_in_here"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="NAME"
+        android:textSize="14sp"
+        android:fontFamily="@font/dmsans"
+        android:layout_below="@id/textView2"/>
+
+    <!-- Email Input -->
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="10dp"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:autofillHints=""
+        android:fontFamily="@font/poppinslight" />
+
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="EMAIL"
+        android:textSize="14sp"
+        android:fontFamily="@font/dmsans"
+        android:layout_below="@id/nameInput"/>
+
+    <!-- Email Input -->
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="10dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:autofillHints=""
+        android:fontFamily="@font/poppinslight" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="PASSWORD"
+        android:textSize="14sp"
+        android:fontFamily="@font/dmsans"
+        android:layout_below="@id/emailInput"/>
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="10dp"
+        android:autofillHints=""
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:fontFamily="@font/poppinslight"/>
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordInput"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppinsbold"
+        android:onClick="signup"
+        android:text="signup"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+</RelativeLayout>
