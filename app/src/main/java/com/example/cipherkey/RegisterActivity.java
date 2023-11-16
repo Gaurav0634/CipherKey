@@ -1,4 +1,5 @@
 package com.example.cipherkey;
+import org.mindrot.jbcrypt.BCrypt;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
@@ -59,24 +60,29 @@ public class RegisterActivity extends AppCompatActivity {
     public void signup(View view) {
         String enteredEmail = emailEditText.getText().toString();
         String enteredPassword = passwordEditText.getText().toString();
+        String salt = BCrypt.gensalt(); // Generate a salt
+        String hashedPassword = BCrypt.hashpw(enteredPassword, salt); // Hash the password
+
         String enteredName = nameEditText.getText().toString();
-        new DatabaseConnectionTask().execute(enteredEmail, enteredPassword, enteredName);
+        new DatabaseConnectionTask().execute(enteredEmail, hashedPassword, enteredName, salt);
     }
 
     private class DatabaseConnectionTask extends AsyncTask<String, Void, Boolean> {
         @Override
         protected Boolean doInBackground(String... params) {
             String enteredEmail = params[0];
-            String enteredPassword = params[1];
+            String hashedPassword = params[1];
             String enteredName = params[2];
+            String salt = params[3];
 
             try {
                 Connection connection = DriverManager.getConnection(DatabaseConfig.url, DatabaseConfig.username, DatabaseConfig.password);
-                String sql = "INSERT INTO login (name, email, password_hash) VALUES (?, ?, ?)";
+                String sql = "INSERT INTO login (name, email, password_hash, salt) VALUES (?, ?, ?, ?)";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setString(1, enteredName);
                 statement.setString(2, enteredEmail);
-                statement.setString(3, enteredPassword);
+                statement.setString(3, hashedPassword);
+                statement.setString(4, salt);
 
                 int rowsInserted = statement.executeUpdate(); // Use executeUpdate for INSERT
 

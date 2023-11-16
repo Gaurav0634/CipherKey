@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import android.util.Log;
 
+import org.mindrot.jbcrypt.BCrypt;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -43,14 +44,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        navigateToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to the login activity
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
     public void login(View view) {
@@ -68,14 +61,25 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 Connection connection = DriverManager.getConnection(DatabaseConfig.url, DatabaseConfig.username, DatabaseConfig.password);
-                String sql = "SELECT * FROM login WHERE email = ? AND password_hash = ?";
+                String sql = "SELECT password_hash, salt FROM login WHERE email = ?";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setString(1, enteredEmail);
-                statement.setString(2, enteredPassword);
 
                 ResultSet resultSet = statement.executeQuery();
 
-                return resultSet.next(); // true if a matching row is found
+                if(resultSet.next()){
+                    // Retrieve the stored password_hash and salt
+                    String storedHashedPassword = resultSet.getString("password_hash");
+                    String salt = resultSet.getString("salt");
+
+                    //Combine the stored salt and Inputed Password
+                    String combinedPassword = BCrypt.hashpw(enteredPassword, salt);
+
+                    //Compare combinePassword and storeHashedPassword
+                    return  BCrypt.checkpw(enteredPassword, storedHashedPassword);
+                    } else{
+                    return false;
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

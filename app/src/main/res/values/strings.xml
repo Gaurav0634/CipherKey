@@ -7,4 +7,6 @@
     <string name="welcome">Welcome</string>
     <string name="name">Name</string>
     <string name="already_registered_log_in_here">Already Registered? Log in here.</string>
+
+
 </resources>
